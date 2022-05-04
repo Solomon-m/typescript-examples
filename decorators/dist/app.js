@@ -11,6 +11,17 @@ function Logger(logString) {
         console.log(constructor);
     };
 }
+function WithTemplate(template, hookId) {
+    return function (constructor) {
+        console.log("WithTemplate");
+        const hookEl = document.getElementById(hookId);
+        const p = new constructor();
+        if (hookEl) {
+            hookEl.innerHTML = template;
+            hookEl.querySelector('h1').textContent = p.name;
+        }
+    };
+}
 let Person = class Person {
     constructor() {
         this.name = 'Max';
@@ -18,8 +29,17 @@ let Person = class Person {
     }
 };
 Person = __decorate([
-    Logger('LOGGING - PERSON')
+    Logger('LOGGING - PERSON'),
+    WithTemplate('<h1> my person object<h1>', 'app')
 ], Person);
-const pers1 = new Person();
-console.log("pers.name: ", pers1);
+const pers3 = new Person();
+class Product {
+    constructor(t, p) {
+        this.title = t;
+        this.price = p;
+    }
+    getPriceWithTax(tax) {
+        return this.price * (1 + tax);
+    }
+}
 //# sourceMappingURL=app.js.map
