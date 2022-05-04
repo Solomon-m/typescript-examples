@@ -1,0 +1,1 @@
+function Logger(logString: string) {
