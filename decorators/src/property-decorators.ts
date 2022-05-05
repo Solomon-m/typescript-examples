@@ -19,7 +19,7 @@ function WithTemplate(template: string, hookId: string) {
   };
 }
 
-// @Logger('LOGGING - PERSON')
+
 @Logger('LOGGING')
 @WithTemplate('<h1>My Person Object</h1>', 'app')
 class Person {
@@ -34,7 +34,6 @@ const pers = new Person();
 
 console.log(pers);
 
-// ---
 
 function Log(target: any, propertyName: string | Symbol) {
   console.log('Property decorator!');
