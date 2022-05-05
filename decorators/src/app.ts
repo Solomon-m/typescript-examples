@@ -34,7 +34,7 @@ const pers = new Person();
 
 console.log(pers);
 
-// ---
+
 
 function Log(target: any, propertyName: string | Symbol) {
   console.log('Property decorator!');
@@ -90,6 +90,5 @@ class Product {
     return this._price * (1 + tax);
   }
 }
-
 const p1 = new Product('Book', 19);
 const p2 = new Product('Book 2', 29);
