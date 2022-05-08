@@ -43,9 +43,9 @@ function Log(target: any, propertyName: string | Symbol) {
 
 function Log2(target: any, name: string, descriptor: PropertyDescriptor) {
   console.log('Accessor decorator!');
-  console.log(target);
-  console.log(name);
-  console.log(descriptor);
+  // console.log(target);
+  // console.log(name);
+  // console.log(descriptor);
 }
 
 function Log3(
