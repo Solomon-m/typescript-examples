@@ -88,4 +88,66 @@ __decorate([
 const p = new Printer();
 const button = document.querySelector('button');
 button.addEventListener('click', p.showMessage);
+const registeredValidators = {};
+function Required(target, propName) {
+    registeredValidators[target.constructor.name] = {
+        [propName]: ['required']
+    };
+}
+function PositiveNumber(target, propName) {
+    registeredValidators[target.constructor.name] = {
+        [propName]: ['positive']
+    };
+}
+function validate(obj) {
+    const objValidatorConfig = registeredValidators[obj.constructor.name];
+    if (!objValidatorConfig) {
+        return true;
+    }
+    for (const prop in objValidatorConfig) {
+        for (const validator in objValidatorConfig[prop]) {
+            switch (validator) {
+                case 'required':
+                    if (obj[prop] === undefined) {
+                        return false;
+                    }
+                    break;
+                case 'positive':
+                    if (obj[prop] < 0) {
+                        return false;
+                    }
+                    break;
+            }
+        }
+    }
+    return true;
+}
+class Course {
+    constructor(t, p) {
+        this.title = t;
+        this.price = p;
+    }
+}
+__decorate([
+    Required
+], Course.prototype, "title", void 0);
+__decorate([
+    PositiveNumber
+], Course.prototype, "price", void 0);
+const courseForm = document.querySelector('form');
+courseForm.addEventListener('submit', event => {
+    event.preventDefault();
+    const titleEl = document.getElementById('title');
+    const priceEl = document.getElementById('price');
+    const title = titleEl.value;
+    const price = +priceEl.value;
+    const createdCourse = new Course(title, price);
+    if (!validate(createdCourse)) {
+        console.error('Invalid input, not saving');
+        return;
+    }
+    else {
+        console.log(createdCourse);
+    }
+});
 //# sourceMappingURL=app.js.map
