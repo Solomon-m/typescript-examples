@@ -14,7 +14,7 @@ class ProjectInput {
     }
     submiteHandler(event) {
         event.preventDefault();
-        console.log("event -", this.titleInputElement.value);
+        console.log("title --", this.titleInputElement.value);
     }
     configure() {
         this.element.addEventListener('submit', this.submiteHandler.bind(this));
