@@ -18,9 +18,7 @@ class ProjectInput {
         this.descriptionInputElement = document.querySelector('#description') as HTMLInputElement;
         this.peopleInputElement = document.querySelector('#people') as HTMLInputElement;
         this.configure();
-
-
-        this.attach()
+        this.attach();
     }
     private submiteHandler(event : Event){
         event.preventDefault()
