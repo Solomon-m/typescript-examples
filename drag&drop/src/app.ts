@@ -31,9 +31,15 @@ class ProjectInput {
         this.configure();
         this.attach();
     }
+    @autobind
     private submiteHandler(event: Event) {
-        event.preventDefault()
-        
+        event.preventDefault();
+        var userInput = this.gatherUserInput();
+        if (Array.isArray(userInput)) {
+            const [title, desc, people] = userInput;
+            console.log(title, desc, people);
+        }
+
     }
     private configure() {
         this.element.addEventListener('submit', this.submiteHandler);
@@ -41,6 +47,21 @@ class ProjectInput {
     private attach() {
         this.hostElement.insertAdjacentElement('afterbegin', this.element);
     }
+    private gatherUserInput():[string, string, number] | void{
+        const enteredTitle = this.titleInputElement.value;
+        const enteredDescription = this.descriptionInputElement.value;
+        const enteredPeople = this.peopleInputElement.value;
+
+        this.clearInputs();
+
+        return [enteredTitle, enteredDescription, +enteredPeople];
+    }
+    private clearInputs(){
+        this.titleInputElement.value = '';
+        this.descriptionInputElement.value = '';
+        this.peopleInputElement.value = '';
+    }
+
 }
 
 const projectInput = new ProjectInput();
