@@ -16,6 +16,25 @@ function autobind(_, _2, descriptor) {
     };
     return adjustedDescriptor;
 }
+function validate(validatableInput) {
+    let isValid = true;
+    if (validatableInput.required) {
+        isValid = isValid && (validatableInput.value.toString().trim().length !== 0);
+    }
+    if (validatableInput.minLength != null && typeof validatableInput.value === 'string') {
+        isValid = isValid && (validatableInput.value.length >= validatableInput.minLength);
+    }
+    if (validatableInput.maxLength != null && typeof validatableInput.value === 'string') {
+        isValid = isValid && (validatableInput.value.length < validatableInput.maxLength);
+    }
+    if (validatableInput.min != null && typeof validatableInput.value === 'number') {
+        isValid = isValid && (validatableInput.value <= validatableInput.min);
+    }
+    if (validatableInput.max != null && typeof validatableInput.value === 'number') {
+        isValid = isValid && (validatableInput.value > validatableInput.max);
+    }
+    return isValid;
+}
 class ProjectInput {
     constructor() {
         this.templateElement = document.getElementById('project-input');
@@ -47,6 +66,23 @@ class ProjectInput {
         const enteredTitle = this.titleInputElement.value;
         const enteredDescription = this.descriptionInputElement.value;
         const enteredPeople = this.peopleInputElement.value;
+        const titleValidatable = {
+            value: enteredTitle,
+            required: true
+        };
+        const descriptionValidatable = {
+            value: enteredDescription,
+            required: true,
+            minLength: 5
+        };
+        const peopleValidatable = {
+            value: +enteredPeople,
+            required: true,
+            min: 1,
+        };
+        if (!validate(titleValidatable) || !validate(descriptionValidatable) || !validate(peopleValidatable)) {
+            alert("Invalid input, please try again");
+        }
         this.clearInputs();
         return [enteredTitle, enteredDescription, +enteredPeople];
     }
