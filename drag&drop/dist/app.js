@@ -1,4 +1,15 @@
 "use strict";
+function autobind(_, _2, descriptor) {
+    const originalMethod = descriptor.value;
+    const adjustedDescriptor = {
+        configurable: true,
+        get() {
+            const boundFn = originalMethod.bind(this);
+            return boundFn;
+        }
+    };
+    return adjustedDescriptor;
+}
 class ProjectInput {
     constructor() {
         this.templateElement = document.getElementById('project-input');
@@ -14,10 +25,9 @@ class ProjectInput {
     }
     submiteHandler(event) {
         event.preventDefault();
-        console.log("title --", this.titleInputElement.value);
     }
     configure() {
-        this.element.addEventListener('submit', this.submiteHandler.bind(this));
+        this.element.addEventListener('submit', this.submiteHandler);
     }
     attach() {
         this.hostElement.insertAdjacentElement('afterbegin', this.element);
