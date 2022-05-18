@@ -44,9 +44,15 @@ class ProjectList {
         this.element = importedNode.firstElementChild;
         this.element.id = `${this.type}-projects`;
         this.attach();
+        this.renderContent();
     }
     attach() {
         this.hostElement.insertAdjacentElement('beforeend', this.element);
+    }
+    renderContent() {
+        const listId = `${this.type}-projects-list`;
+        this.element.querySelector('ul').id = listId;
+        this.element.querySelector('h2').textContent = this.type.toUpperCase() + ' PROJECTS';
     }
 }
 class ProjectInput {
@@ -110,4 +116,5 @@ __decorate([
     autobind
 ], ProjectInput.prototype, "submiteHandler", null);
 const projectInput = new ProjectInput();
+const projectList = new ProjectList('active');
 //# sourceMappingURL=app.js.map

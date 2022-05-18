@@ -52,9 +52,15 @@ class ProjectList{
         this.element.id =`${this.type}-projects`;
        
         this.attach();
+        this.renderContent();
     }
     private attach() {
         this.hostElement.insertAdjacentElement('beforeend', this.element);
+    }
+    private renderContent() {
+        const listId = `${this.type}-projects-list`;
+        this.element.querySelector('ul')!.id = listId;
+        this.element.querySelector('h2')!.textContent = this.type.toUpperCase() + ' PROJECTS';
     }
 }
 class ProjectInput {
@@ -128,3 +134,4 @@ class ProjectInput {
 }
 
 const projectInput = new ProjectInput();
+const projectList = new ProjectList('active');
