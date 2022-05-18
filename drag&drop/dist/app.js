@@ -116,5 +116,6 @@ __decorate([
     autobind
 ], ProjectInput.prototype, "submiteHandler", null);
 const projectInput = new ProjectInput();
-const projectList = new ProjectList('active');
+const activeprojectList = new ProjectList('active');
+const finishedprojectList = new ProjectList('finished');
 //# sourceMappingURL=app.js.map
