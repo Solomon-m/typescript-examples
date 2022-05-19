@@ -1,32 +1,38 @@
 // Code goes here!
-class ProjectState{
-    private listeners:any[] = [];
-    private projects:any[] =[];
+class ProjectState {
+    private listeners: any[] = [];
+    private projects: any[] = [];
     private static instance: ProjectState;
-    private constructor(){
-
-    }
-    static getInstance(){
-        if(!this.instance){
-            this.instance = new ProjectState();
-        }
+  
+    private constructor() {}
+  
+    static getInstance() {
+      if (this.instance) {
         return this.instance;
+      }
+      this.instance = new ProjectState();
+      return this.instance;
     }
-    addProject(title:string, description:string, numOfPeople:number){
-        const newProject = {
-            id: Math.random().toString(),
-            title: title,
-            description: description,
-            people: numOfPeople,
-        };
-        this.projects.push(newProject);
-        for(const listenersFun of this.listeners){
-            listenersFun(this.projects.slice());
-        }
+  
+    addListener(listenerFn: Function) {
+      this.listeners.push(listenerFn);
     }
-}
-
-const projectState = ProjectState.getInstance();
+  
+    addProject(title: string, description: string, numOfPeople: number) {
+      const newProject = {
+        id: Math.random().toString(),
+        title: title,
+        description: description,
+        people: numOfPeople
+      };
+      this.projects.push(newProject);
+      for (const listenerFn of this.listeners) {
+        listenerFn(this.projects.slice());
+      }
+    }
+  }
+  
+  const projectState = ProjectState.getInstance();
 // Validation 
 interface Validatable {
     value: string | number;
