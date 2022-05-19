@@ -81,9 +81,9 @@ class ProjectList {
         const importedNode = document.importNode(this.templateElement.content, true);
         this.element = importedNode.firstElementChild as HTMLElement;
         this.element.id = `${this.type}-projects`;
-        // projectState.addListener((projects: any[]) => {
-        //     this.assignedProjects = projects;
-        // });
+        projectState.addListener((projects: any[]) => {
+            this.assignedProjects = projects;
+        });
         this.attach();
         this.renderContent();
     }
