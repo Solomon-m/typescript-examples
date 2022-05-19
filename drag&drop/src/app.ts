@@ -1,4 +1,7 @@
 // Code goes here!
+// class Project{
+//     constructor(public title:string, public description:string, public id:number){}
+// }
 class ProjectState {
     private listeners: any[] = [];
     private projects: any[] = [];
@@ -105,9 +108,9 @@ class ProjectList {
     private renderProjects() {
         const listEl = document.getElementById(`${this.type}-projects-list`) !as HTMLUListElement;
         listEl.innerHTML = '';
-        for (const prjItem of this.assignedProjects) {
-            new ProjectItem(this.element.querySelector('ul')!.id, prjItem);
-        }
+        // for (const prjItem of this.assignedProjects) {
+        //    // new ProjectItem(this.element.querySelector('ul')!.id, prjItem);
+        // }
     }
 }
 class ProjectInput {
