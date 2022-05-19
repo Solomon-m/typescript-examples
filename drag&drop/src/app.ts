@@ -89,6 +89,7 @@ class ProjectList {
         this.element.id = `${this.type}-projects`;
         projectState.addListener((projects: any[]) => {
             this.assignedProjects = projects;
+            this.renderProjects();
         });
         this.attach();
         this.renderContent();
@@ -101,6 +102,7 @@ class ProjectList {
         this.element.querySelector('ul') !.id = listId;
         this.element.querySelector('h2') !.textContent = this.type.toUpperCase() + ' PROJECTS';
     }
+    
 }
 class ProjectInput {
     templateElement: HTMLTemplateElement;
