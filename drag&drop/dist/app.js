@@ -79,6 +79,16 @@ function autobind(_, _2, descriptor) {
     };
     return adjDescriptor;
 }
+class Component {
+    constructor(element) {
+        this.element = element;
+        this.clickHandler = () => {
+            console.log('I was clicked');
+        };
+        this.element = element;
+        this.element.addEventListener('click', this.clickHandler);
+    }
+}
 class ProjectList {
     constructor(type) {
         this.type = type;

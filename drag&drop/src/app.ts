@@ -110,6 +110,16 @@ function autobind(_: any, _2: string, descriptor: PropertyDescriptor) {
     return adjDescriptor;
 }
 
+class Component {
+    constructor(public element: HTMLElement) {
+        this.element = element;
+        this.element.addEventListener('click', this.clickHandler);
+    }
+
+    public clickHandler = (): void => {
+        console.log('I was clicked');
+    }
+}
 // ProjectList Class
 class ProjectList {
     templateElement: HTMLTemplateElement;
