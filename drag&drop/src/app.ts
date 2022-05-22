@@ -176,6 +176,7 @@ class ProjectList extends Component<HTMLDivElement,HTMLElement>{
         this.element.querySelector('h2')!.textContent =
             this.type.toUpperCase() + ' PROJECTS';
     }
+}
 
    
 
