@@ -132,43 +132,33 @@ abstract class Component(T extends HTMLElement, U extends HTMLElement) {
 
 }
 // ProjectList Class
-class ProjectList {
-    templateElement: HTMLTemplateElement;
-    hostElement: HTMLDivElement;
-    element: HTMLElement;
+class ProjectList extends Component<HTMLDivElement,HTMLElement>{
+
     assignedProjects: Project[];
 
     constructor(private type: 'active' | 'finished') {
-        this.templateElement = document.getElementById(
-            'project-list'
-        )! as HTMLTemplateElement;
-        this.hostElement = document.getElementById('app')! as HTMLDivElement;
+        super('project-list', 'app', false, `${type}-projects`);
         this.assignedProjects = [];
 
-        const importedNode = document.importNode(
-            this.templateElement.content,
-            true
-        );
-        this.element = importedNode.firstElementChild as HTMLElement;
-        this.element.id = `${this.type}-projects`;
 
-        projectState.addListener((projects: Project[]) => {
-            // Adding only active projects and ignoring finished ones
-            const relevantProjects = projects.filter(prj => {
-                if (this.type === 'active') {
-                    return prj.status === ProjectStatus.Active;
-                }
-                return prj.status === ProjectStatus.Finished;
+        
+        configure(){
+            projectState.addListener((projects: Project[]) => {
+                // Adding only active projects and ignoring finished ones
+                const relevantProjects = projects.filter(prj => {
+                    if (this.type === 'active') {
+                        return prj.status === ProjectStatus.Active;
+                    }
+                    return prj.status === ProjectStatus.Finished;
+                });
+                this.assignedProjects = relevantProjects;
+                this.renderProjects();
             });
-            this.assignedProjects = relevantProjects;
-            this.renderProjects();
-        });
-
-        this.attach();
+        }
         this.renderContent();
     }
 
-    private renderProjects() {
+     renderProjects() {
         const listEl = document.getElementById(
             `${this.type}-projects-list`
         )! as HTMLUListElement;
@@ -187,10 +177,7 @@ class ProjectList {
             this.type.toUpperCase() + ' PROJECTS';
     }
 
-    private attach() {
-        this.hostElement.insertAdjacentElement('beforeend', this.element);
-    }
-}
+   
 
 // ProjectInput Class
 class ProjectInput {
