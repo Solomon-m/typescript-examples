@@ -106,10 +106,18 @@ class ProjectItem extends Component {
         this.configure();
         this.renderContent();
     }
+    get persons() {
+        if (this.project.people === 1) {
+            return '1 person';
+        }
+        else {
+            return `${this.project.people} persons`;
+        }
+    }
     configure() { }
     renderContent() {
         this.element.querySelector('h2').textContent = this.project.title;
-        this.element.querySelector('h3').textContent = JSON.stringify(this.project.people);
+        this.element.querySelector('h3').textContent = this.persons + ' assigned';
         this.element.querySelector('p').textContent = this.project.description;
     }
 }
@@ -143,7 +151,7 @@ class ProjectList extends Component {
         const listEl = document.getElementById(`${this.type}-projects-list`);
         listEl.innerHTML = '';
         for (const prjItem of this.assignedProjects) {
-            new ProjectItem(this.element.id, prjItem);
+            new ProjectItem(this.element.querySelector('ul').id, prjItem);
         }
     }
 }

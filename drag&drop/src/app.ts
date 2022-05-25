@@ -11,13 +11,12 @@ class Project {
     public description: string,
     public people: number,
     public status: ProjectStatus
-  ) { }
+  ) {}
 }
 
 // Project State Management
 type Listener<T> = (items: T[]) => void;
 
-// common state class
 class State<T> {
   protected listeners: Listener<T>[] = [];
 
@@ -155,22 +154,36 @@ abstract class Component<T extends HTMLElement, U extends HTMLElement> {
   abstract configure(): void;
   abstract renderContent(): void;
 }
-class ProjectItem  extends Component<HTMLUListElement, HTMLLIElement> {
-  private project : Project;
 
-  constructor(hostId:string, project :Project) {
-    super('single-project',hostId,false,project.id);
+// ProjectItem Class
+class ProjectItem extends Component<HTMLUListElement, HTMLLIElement> {
+  private project: Project;
+
+  get persons() {
+    if (this.project.people === 1) {
+      return '1 person';
+    } else {
+      return `${this.project.people} persons`;
+    }
+  }
+
+  constructor(hostId: string, project: Project) {
+    super('single-project', hostId, false, project.id);
     this.project = project;
+
     this.configure();
     this.renderContent();
   }
-  configure(){}
-  renderContent(){
+
+  configure() {}
+
+  renderContent() {
     this.element.querySelector('h2')!.textContent = this.project.title;
-    this.element.querySelector('h3')!.textContent = JSON.stringify(this.project.people);
+    this.element.querySelector('h3')!.textContent = this.persons + ' assigned';
     this.element.querySelector('p')!.textContent = this.project.description;
   }
 }
+
 // ProjectList Class
 class ProjectList extends Component<HTMLDivElement, HTMLElement> {
   assignedProjects: Project[];
@@ -209,7 +222,7 @@ class ProjectList extends Component<HTMLDivElement, HTMLElement> {
     )! as HTMLUListElement;
     listEl.innerHTML = '';
     for (const prjItem of this.assignedProjects) {
-      new ProjectItem(this.element.id,prjItem);
+      new ProjectItem(this.element.querySelector('ul')!.id, prjItem);
     }
   }
 }
@@ -238,7 +251,7 @@ class ProjectInput extends Component<HTMLDivElement, HTMLFormElement> {
     this.element.addEventListener('submit', this.submitHandler);
   }
 
-  renderContent() { }
+  renderContent() {}
 
   private gatherUserInput(): [string, string, number] | void {
     const enteredTitle = this.titleInputElement.value;
