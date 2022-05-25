@@ -109,7 +109,7 @@ class ProjectItem extends Component {
     configure() { }
     renderContent() {
         this.element.querySelector('h2').textContent = this.project.title;
-        this.element.querySelector('h3').textContent = this.project.people.toString();
+        this.element.querySelector('h3').textContent = JSON.stringify(this.project.people);
         this.element.querySelector('p').textContent = this.project.description;
     }
 }
