@@ -23,7 +23,7 @@ class Project {
     public description: string,
     public people: number,
     public status: ProjectStatus
-  ) {}
+  ) { }
 }
 
 // Project State Management
@@ -228,7 +228,7 @@ class ProjectList extends Component<HTMLDivElement, HTMLElement>
     listEl.classList.add('droppable');
   }
 
-  dropHandler(_: DragEvent) {}
+  dropHandler(_: DragEvent) { }
 
   @autobind
   dragLeaveHandler(_: DragEvent) {
@@ -295,7 +295,7 @@ class ProjectInput extends Component<HTMLDivElement, HTMLFormElement> {
     this.element.addEventListener('submit', this.submitHandler);
   }
 
-  renderContent() {}
+  renderContent() { }
 
   private gatherUserInput(): [string, string, number] | void {
     const enteredTitle = this.titleInputElement.value;
