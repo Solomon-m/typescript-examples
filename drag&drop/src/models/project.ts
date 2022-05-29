@@ -11,6 +11,6 @@ namespace App {
             public description: string,
             public people: number,
             public status: ProjectStatus
-        ) {}
+        ) { }
     }
 }
