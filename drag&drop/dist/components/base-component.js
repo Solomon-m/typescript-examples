@@ -1,3 +1,4 @@
+export const something = '...';
 export default class Component {
     constructor(templateId, hostElementId, insertAtStart, newElementId) {
         this.templateElement = document.getElementById(templateId);
